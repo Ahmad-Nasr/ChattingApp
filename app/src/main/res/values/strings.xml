@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ChattingApp</string>
+
+    <!-- Sign-In -->
+    <string name="app_icon_content_description">Application Icon</string>
+    <string name="edt_name_hint">User name</string>
+    <string name="edt_password_hint">Password</string>
+    <string name="btn_sign_in_text">Sign In</string>
+    <string name="btn_sign_up_text">Sign Up</string>
+
+
 </resources>
