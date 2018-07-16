@@ -8,5 +8,10 @@
     <string name="btn_sign_in_text">Sign In</string>
     <string name="btn_sign_up_text">Sign Up</string>
 
+    <!-- Sign-up -->
+    <string name="btn_select_image_text">Select</string>
+    <string name="btn_upload_text">Upload</string>
+    <string name="txt_image_label_text">Profile picture</string>
+
 
 </resources>

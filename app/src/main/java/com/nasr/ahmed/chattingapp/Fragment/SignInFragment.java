@@ -1,7 +1,10 @@
 package com.nasr.ahmed.chattingapp.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import com.nasr.ahmed.chattingapp.BuildConfig;
 import com.nasr.ahmed.chattingapp.Common.Common;
+import com.nasr.ahmed.chattingapp.Dialog.SignUpDialog;
 import com.nasr.ahmed.chattingapp.R;
 import com.quickblox.auth.QBAuth;
 import com.quickblox.auth.session.QBSession;
@@ -24,17 +28,22 @@ import com.quickblox.users.model.QBUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.measite.minidns.record.A;
 
 
 public class SignInFragment extends Fragment{
 
+
     private static final String TAG = SignInFragment.class.getSimpleName();
+
 
     static final String APP_ID = BuildConfig.AppID;
     static final String AUTH_KEY = BuildConfig.AuthKey ;
     static final String AUTH_SECRET = BuildConfig.AuthSecret;
     static final String ACCOUNT_KEY = BuildConfig.AccountKey;
 
+
+    private FragmentActivity hostingActivity;
     QBChatService chatService;
     QBUser currentQBuser;
 
@@ -65,8 +74,8 @@ public class SignInFragment extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         ButterKnife.bind(this, view);
@@ -92,6 +101,18 @@ public class SignInFragment extends Fragment{
            }
 
        });
+
+
+
+        mButtonSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               SignUpDialog signUpDialog = new SignUpDialog();
+               signUpDialog.show(hostingActivity.getSupportFragmentManager(),
+                       "SignUp");
+
+            }
+        });
         return view;
     }
 
@@ -136,5 +157,9 @@ public class SignInFragment extends Fragment{
 
     }
 
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.hostingActivity = (FragmentActivity) context;
+    }
 }

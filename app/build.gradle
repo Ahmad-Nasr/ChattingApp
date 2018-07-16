@@ -52,6 +52,14 @@ dependencies {
     implementation "com.quickblox:quickblox-android-sdk-content:3.3.0"
     implementation "com.quickblox:quickblox-android-sdk-core:3.3.0"
 
+    //picasso for easy setting of images from (URI/URL)
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //spots dialog
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+
+
 
 
 }

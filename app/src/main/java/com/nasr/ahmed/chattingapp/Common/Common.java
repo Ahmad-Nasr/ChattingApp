@@ -17,6 +17,9 @@ public class Common {
     private final static String TAG = Common.class.getSimpleName();
     public static QBUser currentQbUser;
 
+    public static final int SELECT_IMAGE_REQUEST =10;
+
+
     //context must be passed to use such method
     //can't be intialized outside an application component
     //so set it as an argument
