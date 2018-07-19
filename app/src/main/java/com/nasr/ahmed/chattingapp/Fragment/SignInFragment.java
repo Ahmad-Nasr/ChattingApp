@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.nasr.ahmed.chattingapp.BuildConfig;
 import com.nasr.ahmed.chattingapp.Common.Common;
 import com.nasr.ahmed.chattingapp.Dialog.SignUpDialog;
 import com.nasr.ahmed.chattingapp.R;
+import com.quickblox.auth.QBAuth;
+import com.quickblox.auth.session.QBSession;
 import com.quickblox.auth.session.QBSettings;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallback;
@@ -89,7 +92,9 @@ public class SignInFragment extends Fragment{
                if (!username.equals("") && !password.equals("") )
                {
                    if (Common.isConnectedToInternet(getActivity())){
-                       signIn(username, password);
+                       //Creates a session of the user
+                       //onSuccess: sign-in with the user
+                       createQBsession(username, password);
                    }else {
                        Toast.makeText(getActivity(),"Check your Internet connectivity",Toast.LENGTH_SHORT).show();
                    }
@@ -124,6 +129,22 @@ public class SignInFragment extends Fragment{
         QBSettings.getInstance().setAccountKey(ACCOUNT_KEY);
 
     }
+
+    private void createQBsession(final String username, final String password) {
+        QBUser qbUser = new QBUser(username, password);
+        QBAuth.createSession(qbUser).performAsync(new QBEntityCallback<QBSession>() {
+            @Override
+            public void onSuccess(QBSession qbSession, Bundle bundle) {
+                signIn(username, password);
+            }
+
+            @Override
+            public void onError(QBResponseException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        });
+    }
+
     private void signIn(final String username, final String password) {
         final AlertDialog waitingDialog = new SpotsDialog.Builder().setContext(hostingActivity).build();
         waitingDialog.setMessage("Please wait ...");
@@ -131,6 +152,9 @@ public class SignInFragment extends Fragment{
         waitingDialog.show();
 
         QBUser qbUser = new QBUser(username, password);
+
+
+
         QBUsers.signIn(qbUser).performAsync(new QBEntityCallback<QBUser>() {
             @Override
             public void onSuccess(QBUser qbUser, Bundle bundle) {
@@ -150,7 +174,7 @@ public class SignInFragment extends Fragment{
             public void onError(QBResponseException e) {
                 waitingDialog.dismiss();
                 Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
-
+                Log.e(TAG, e.getMessage());
             }
         });
 

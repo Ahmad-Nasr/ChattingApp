@@ -17,5 +17,8 @@
     <string name="ic_dialog_content_description">Dialog Image</string>
     <string name="txt_no_dialogs">No Dialogs !</string>
 
+    <!--Users-->
+    <string name="ic_user_content_description">User Image</string>
+
 
 </resources>

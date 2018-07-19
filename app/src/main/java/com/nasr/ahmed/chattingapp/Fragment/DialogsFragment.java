@@ -3,7 +3,9 @@ package com.nasr.ahmed.chattingapp.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.nasr.ahmed.chattingapp.Activity.UsersActivity;
 import com.nasr.ahmed.chattingapp.Adapter.DialogsAdapter;
 import com.nasr.ahmed.chattingapp.Common.Common;
 import com.nasr.ahmed.chattingapp.R;
@@ -99,6 +102,8 @@ public class DialogsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //launch usersActivity
+                Intent intent = new Intent(hostingActivity, UsersActivity.class);
+                startActivity(intent);
             }
         });
 

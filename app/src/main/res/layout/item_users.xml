@@ -8,7 +8,7 @@
     android:layout_margin="@dimen/margin_padding_small">
 
     <ImageView
-        android:id="@+id/img_dialog_image"
+        android:id="@+id/img_user_image"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -17,35 +17,14 @@
         android:paddingRight="@dimen/margin_padding_normal"
         tools:src="@drawable/ic_person_black_24dp" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical"
-        android:weightSum="2"
-        android:layout_marginStart="@dimen/margin_padding_normal">
-
-
         <TextView
-            android:id="@+id/txt_dialog_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:id="@+id/txt_user_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:gravity="center_vertical"
             android:textSize="@dimen/text_size_large"
+            tools:text = "ahmed"
             />
-
-        <TextView
-            android:id="@+id/txt_last_msg"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-
-            />
-
-
-
-    </LinearLayout>
-
 </LinearLayout>
+
