@@ -13,5 +13,9 @@
     <string name="btn_upload_text">Upload</string>
     <string name="txt_image_label_text">Profile picture</string>
 
+    <!--Dialogs -->
+    <string name="ic_dialog_content_description">Dialog Image</string>
+    <string name="txt_no_dialogs">No Dialogs !</string>
+
 
 </resources>

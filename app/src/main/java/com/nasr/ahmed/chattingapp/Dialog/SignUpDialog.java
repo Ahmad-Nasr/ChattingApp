@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -55,7 +56,7 @@ public class SignUpDialog extends DialogFragment{
         alertDialogBuilder.setCancelable(false);
 
         //Custom sign up view
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = ((FragmentActivity)hostingContext).getLayoutInflater();
         View sign_up_view = inflater.inflate(R.layout.dialog_sign_up,null);
         alertDialogBuilder.setView(sign_up_view);
         ButterKnife.bind(this, sign_up_view);
@@ -140,8 +141,10 @@ public class SignUpDialog extends DialogFragment{
 
         final AlertDialog waitingDialog = new SpotsDialog.Builder().setContext(hostingContext).build();
         waitingDialog.setMessage("Please wait ...");
+        waitingDialog.setCanceledOnTouchOutside(false);
         waitingDialog.setCancelable(false);
         waitingDialog.show();
+
 
         QBUsers.signUp(newQBuser).performAsync(new QBEntityCallback<QBUser>() {
             @Override

@@ -1,0 +1,33 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nasr.ahmed.chattingapp.Fragment.DialogsFragment">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_dialogs_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"/>
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_add_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/margin_padding_large"
+                android:src="@drawable/ic_add_black_24dp"
+                app:layout_anchor="@id/recycler_dialogs_list"
+                app:layout_anchorGravity="bottom|right|end" />
+
+        <TextView
+            android:id="@+id/txt_no_dialogs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+</android.support.design.widget.CoordinatorLayout>

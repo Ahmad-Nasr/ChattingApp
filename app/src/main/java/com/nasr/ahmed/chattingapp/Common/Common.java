@@ -1,6 +1,7 @@
 package com.nasr.ahmed.chattingapp.Common;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,6 +12,8 @@ import com.quickblox.users.model.QBUser;
 
 import java.security.PublicKey;
 
+import dmax.dialog.SpotsDialog;
+
 
 public class Common {
 
@@ -18,6 +21,18 @@ public class Common {
     public static QBUser currentQbUser;
 
     public static final int SELECT_IMAGE_REQUEST =10;
+
+    public static final String  EXTRA_CURRENT_USER_NAME ="name";
+    public static final String  EXTRA_CURRENT_USER_PASSWORD ="password";
+
+    public static final String  ARG_CURRENT_USER_NAME ="name";
+    public static final String  ARG_CURRENT_USER_PASSWORD ="password";
+
+
+    //not good for use , become null ,pass its info through intent instead
+    //public static  QBUser currentQBUser;
+
+
 
 
     //context must be passed to use such method
@@ -37,4 +52,6 @@ public class Common {
 
         return false;
     }
+
+
 }
