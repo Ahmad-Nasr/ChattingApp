@@ -5,11 +5,14 @@ import android.content.Context;
 import android.icu.lang.UScript;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,16 +43,26 @@ public class UsersFragment extends Fragment {
     RecyclerView mRecyclerViewUsersList;
     @BindView(R.id.txt_no_users)
     TextView mTextViewNoUsers;
+    @BindView(R.id.toolbar_user_fragment)
+    Toolbar mToolbar;
 
 
     private FragmentActivity hostingActivity;
     private UsersAdapter mUsersAdapter;
+
+    private ArrayList<QBUser> mUsersListWithOutCurrentOne;
+
 
 
     public static UsersFragment newInstance() {
         return new UsersFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mUsersListWithOutCurrentOne= new ArrayList<>();
+    }
 
     @NonNull
     @Override
@@ -59,11 +72,17 @@ public class UsersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_users, container, false);
         ButterKnife.bind(this, view);
 
+        mToolbar.setTitle("Choose a friend,");
+        ((AppCompatActivity)hostingActivity).setSupportActionBar(mToolbar);
+
         mRecyclerViewUsersList.setHasFixedSize(true);
         mRecyclerViewUsersList.setLayoutManager(new LinearLayoutManager(hostingActivity));
         mRecyclerViewUsersList.addItemDecoration(new DividerItemDecoration(hostingActivity, LinearLayoutManager.VERTICAL));
 
         loadOtherUsers();
+
+
+
 
 
 
@@ -76,18 +95,19 @@ public class UsersFragment extends Fragment {
         QBUsers.getUsers(null).performAsync(new QBEntityCallback<ArrayList<QBUser>>() {
             @Override
             public void onSuccess(ArrayList<QBUser> qbUsers, Bundle bundle) {
-                ArrayList<QBUser> usersListWithOutCurrentOne = new ArrayList<>();
+
+                mUsersListWithOutCurrentOne.clear();
                 String currentUserLogin = QBChatService.getInstance().getUser().getLogin();
 
                 for (QBUser user : qbUsers) {
-                    if (!user.getLogin().equals(currentUserLogin)) {
-                        usersListWithOutCurrentOne.add(user);
+                    if (! user.getLogin() .equals( currentUserLogin)) {
+                        mUsersListWithOutCurrentOne.add(user);
                     }
                 }
 
-                mUsersAdapter = new UsersAdapter(hostingActivity, usersListWithOutCurrentOne);
+                mUsersAdapter = new UsersAdapter(hostingActivity, mUsersListWithOutCurrentOne);
                 if (mUsersAdapter.getItemCount() == 0) {
-                    mTextViewNoUsers.setText(R.string.txt_no_dialogs);
+                    mTextViewNoUsers.setText(R.string.txt_no_users);
                 } else {
                     mTextViewNoUsers.setText("");
                 }

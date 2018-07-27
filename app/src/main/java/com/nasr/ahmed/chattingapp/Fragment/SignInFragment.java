@@ -29,6 +29,11 @@ import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
@@ -47,7 +52,6 @@ public class SignInFragment extends Fragment{
 
 
     private FragmentActivity hostingActivity;
-    QBChatService chatService;
 
     @BindView(R.id.edt_name)
     EditText mEditTextName;
@@ -83,6 +87,7 @@ public class SignInFragment extends Fragment{
         ButterKnife.bind(this, view);
 
 
+
         mButtonSignIn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -94,7 +99,9 @@ public class SignInFragment extends Fragment{
                    if (Common.isConnectedToInternet(getActivity())){
                        //Creates a session of the user
                        //onSuccess: sign-in with the user
+                       mButtonSignIn.setEnabled(false);
                        createQBsession(username, password);
+
                    }else {
                        Toast.makeText(getActivity(),"Check your Internet connectivity",Toast.LENGTH_SHORT).show();
                    }
@@ -140,7 +147,10 @@ public class SignInFragment extends Fragment{
 
             @Override
             public void onError(QBResponseException e) {
+                mButtonSignIn.setEnabled(true);
+
                 Log.e(TAG, e.getMessage());
+                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -161,6 +171,7 @@ public class SignInFragment extends Fragment{
                 Toast.makeText(getActivity(),"Signed in successfully",Toast.LENGTH_SHORT).show();
                 mEditTextPassword.setText("");
 
+
                 //launch DialogsActivity
                 Intent intent = new Intent(hostingActivity, DialogsActivity.class);
                 intent.putExtra(Common.EXTRA_CURRENT_USER_NAME,username);
@@ -168,11 +179,14 @@ public class SignInFragment extends Fragment{
 
                 startActivity(intent);
                 waitingDialog.dismiss();
+                mButtonSignIn.setEnabled(true);
+
             }
 
             @Override
             public void onError(QBResponseException e) {
                 waitingDialog.dismiss();
+                mButtonSignIn.setEnabled(true);
                 Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
                 Log.e(TAG, e.getMessage());
             }

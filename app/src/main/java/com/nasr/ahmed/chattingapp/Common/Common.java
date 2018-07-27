@@ -18,15 +18,20 @@ import dmax.dialog.SpotsDialog;
 public class Common {
 
     private final static String TAG = Common.class.getSimpleName();
+
     public static QBUser currentQbUser;
 
     public static final int SELECT_IMAGE_REQUEST =10;
 
     public static final String  EXTRA_CURRENT_USER_NAME ="name";
     public static final String  EXTRA_CURRENT_USER_PASSWORD ="password";
+    public static final String  EXTRA_CHOOSEN_CHAT_DIALOG ="chatDialog";
+    public static final String EXTRA_CHOOSEN_CHAT_USER = "userParticipant";
+
 
     public static final String  ARG_CURRENT_USER_NAME ="name";
     public static final String  ARG_CURRENT_USER_PASSWORD ="password";
+    public static final String  ARG_CHOOSEN_CHAT_DIALOG ="chatDialog";
 
 
     //not good for use , become null ,pass its info through intent instead

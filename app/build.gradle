@@ -63,5 +63,8 @@ dependencies {
     //text Drawables
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
+   // implementation 'com.github.lguipeng:BubbleView:1.0.1'
+    implementation 'com.daasuu:BubbleLayout:1.2.0'
+
 
 }

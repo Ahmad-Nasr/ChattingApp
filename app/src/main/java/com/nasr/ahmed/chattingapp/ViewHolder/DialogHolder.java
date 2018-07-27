@@ -1,5 +1,7 @@
 package com.nasr.ahmed.chattingapp.ViewHolder;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +9,9 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.nasr.ahmed.chattingapp.Activity.DialogsActivity;
+import com.nasr.ahmed.chattingapp.Activity.MessagesActivity;
+import com.nasr.ahmed.chattingapp.Common.Common;
 import com.nasr.ahmed.chattingapp.R;
 import com.quickblox.chat.model.QBChatDialog;
 
@@ -15,6 +20,8 @@ import butterknife.ButterKnife;
 
 
 public class DialogHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    QBChatDialog choosedQBChatDialog;
 
     @BindView(R.id.img_dialog_image)
     ImageView mImageViewDialogImage;
@@ -31,6 +38,8 @@ public class DialogHolder extends RecyclerView.ViewHolder implements View.OnClic
     }
 
     public void bindDialogItem(QBChatDialog dialogItemData) {
+        choosedQBChatDialog = dialogItemData;
+
         mTextViewDialogName.setText(dialogItemData.getName());
         mTextViewLastMsg.setText(dialogItemData.getLastMessage());
 
@@ -50,6 +59,14 @@ public class DialogHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     @Override
     public void onClick(View view) {
+        view.setEnabled(false);
+        Context context = view.getContext();
+
         //launch messagesList Activity, passing the dialog information
+        Intent intent = new Intent(context, MessagesActivity.class);
+        intent.putExtra(Common.EXTRA_CHOOSEN_CHAT_DIALOG, choosedQBChatDialog);
+        ((DialogsActivity)context).startActivity(intent);
+        view.setEnabled(true);
+
     }
 }

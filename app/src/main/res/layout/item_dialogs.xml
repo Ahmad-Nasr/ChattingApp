@@ -13,9 +13,10 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:contentDescription="@string/ic_dialog_content_description"
+        tools:src="@drawable/ic_person_black_24dp"
         android:paddingLeft="@dimen/margin_padding_normal"
         android:paddingRight="@dimen/margin_padding_normal"
-        tools:src="@drawable/ic_person_black_24dp" />
+        />
 
     <LinearLayout
         android:layout_width="0dp"

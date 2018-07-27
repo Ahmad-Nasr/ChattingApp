@@ -19,6 +19,9 @@
 
     <!--Users-->
     <string name="ic_user_content_description">User Image</string>
+    <string name="txt_no_users">No users</string>
+    <string name="edt_message_hint">Enter your message ...</string>
+    <string name="send_icon_content_description">Press to send</string>
 
 
 </resources>

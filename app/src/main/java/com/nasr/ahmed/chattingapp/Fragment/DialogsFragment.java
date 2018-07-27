@@ -10,9 +10,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,8 @@ import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.core.request.QBRequestGetBuilder;
 import com.quickblox.users.model.QBUser;
+
+import org.jivesoftware.smack.SmackException;
 
 import java.util.ArrayList;
 
@@ -55,6 +59,9 @@ public class DialogsFragment extends Fragment {
     FloatingActionButton mFabAddDialog;
     @BindView(R.id.txt_no_dialogs)
     TextView mTextViewNoDialogs;
+    @BindView(R.id.toolbar_dialogs_fragment )
+    Toolbar mToolbar;
+
 
     private FragmentActivity hostingActivity;
     private DialogsAdapter mDialogsAdapter;
@@ -87,6 +94,11 @@ public class DialogsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dialogs, container, false);
         ButterKnife.bind(this, view);
+
+
+        mToolbar.setTitle("Welcome, "+username+"!");
+        ((AppCompatActivity)hostingActivity).setSupportActionBar(mToolbar);
+
 
         mRecyclerViewDialogsList.setHasFixedSize(true);
         mRecyclerViewDialogsList.setLayoutManager(new LinearLayoutManager(hostingActivity));
@@ -188,5 +200,15 @@ public class DialogsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.hostingActivity = (FragmentActivity) context;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            QBChatService.getInstance().logout();
+        } catch (SmackException.NotConnectedException e) {
+            e.printStackTrace();
+        }
     }
 }
